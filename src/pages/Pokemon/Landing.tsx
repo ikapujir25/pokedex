@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { PropsLanding } from "./type";
-import Image from "../../assets/pokemon.jpg";
 import { useState } from "react";
 
 const wrapper = css`
-  // background-image: url(${Image});
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;

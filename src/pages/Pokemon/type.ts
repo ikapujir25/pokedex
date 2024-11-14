@@ -1,27 +1,75 @@
 export interface PokemonType {
-  name: string;
-}
-
-export interface PokemonAbility {
-  name: string;
-}
-
-export interface PokemonData {
   id: number;
   name: string;
-  types: PokemonType[];
   abilities: PokemonAbility[];
   height: number;
   weight: number;
   imageUrl: string;
 }
 
-export interface ApiResponse {
+export interface PokemonList {
+  name: string;
+  url: string;
+}
+
+export interface PokemonMoves {
+  // effect_entries: { effect: string };
+  // power: number;
+  name: string;
+  // accuracy: string;
+  // move: { short_effect: string; effect: string };
+}
+
+export interface PokemonType {
+  type: {
+    name: string;
+  };
+}
+
+export interface PokemonList {
+  name: string;
+  url: string;
+}
+
+export interface PokemonData {
+  count: number;
+  next: string;
+  previous: string;
+  results: PokemonList[];
+  pokemonType: PokemonList[];
+}
+
+export interface PokemonMove {
+  move: {
+    name: string;
+    url: string;
+  };
+  name: string;
+}
+
+export interface PokemonAbility {
+  ability: {
+    name: string;
+    url: string;
+  };
+  name: string;
+}
+
+export interface PokemonDetails {
   id: number;
   name: string;
-  types: { type: { name: string } }[];
-  abilities: { ability: { name: string } }[];
-  height: number;
-  weight: number;
-  sprites: { front_default: string };
+  sprites: {
+    front_default: string;
+  };
+  types: PokemonType[];
+  moves: PokemonMove[];
+  abilities: PokemonAbility[];
+  handleBack: () => void;
+}
+
+export interface PropsLanding {
+  data: PokemonDetails[];
+  handleDetail: (item: PokemonDetails) => void;
+  handleFilter: (item: string) => void;
+  pokemonType: [];
 }

@@ -6,16 +6,18 @@ import axios from "axios";
 import Detail from "./Detail";
 
 const Pokemon = () => {
-  const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
-  const [pokemonDetail, setPokemonDetail] = useState<PokemonDetails>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [pokemonType, setPokemonType] = useState([]);
   const limit = 30;
+  const [pokemons, setPokemons] = useState<PokemonDetails[]>([]);
+  const [pokemonsFilter, setPokemonsFilter] = useState<PokemonDetails[]>([]);
+  const [pokemonDetail, setPokemonDetail] = useState<PokemonDetails>();
+  const [pokemonType, setPokemonType] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [openDetail, setOpenDetail] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!openDetail) {
+    if (!openDetail && active === "") {
       const fetchPokemon = async () => {
         setLoading(true);
         setError(null);
@@ -26,7 +28,6 @@ const Pokemon = () => {
           );
 
           if (status === 200) {
-            console.warn(data?.results, "data?.results");
             const pokemonData = await Promise.all(
               data?.results.map(async (item: PokemonList) => {
                 const detailData = await axios.get(item?.url);
@@ -39,7 +40,6 @@ const Pokemon = () => {
               allNames = allNames.concat(
                 data.results.map((pokemon: { name: string }) => pokemon.name)
               );
-              console.warn(typeof allNames, "allNames");
               return allNames;
             };
 
@@ -63,18 +63,11 @@ const Pokemon = () => {
 
               // Step 3: Remove duplicates by converting to a Set and back to an array
               const uniqueTypes = Array.from(new Set(allTypes));
-              console.warn(typeof uniqueTypes, "uniqueTypes");
 
               return uniqueTypes;
             };
 
-            console.warn(
-              getAllUniquePokemonTypes(),
-              "getAllUniquePokemonTypes()"
-            );
-
             getAllUniquePokemonTypes().then((types) => {
-              console.warn(typeof types, "hasil", types);
               setPokemonType(types);
             });
 
@@ -89,7 +82,7 @@ const Pokemon = () => {
 
       fetchPokemon();
     }
-  }, [limit]);
+  }, [limit, active]);
 
   const handleDetail = (item: PokemonDetails) => {
     setOpenDetail(true);
@@ -97,7 +90,15 @@ const Pokemon = () => {
   };
 
   const handleFilter = (item: string) => {
-    console.warn(item, "itemstring");
+    const pokemonsFiltering = pokemons.filter((pokemon) =>
+      pokemon.types.some((pokemonType) => pokemonType.type.name === item)
+    );
+    setActive(item);
+    setPokemonsFilter(pokemonsFiltering);
+  };
+
+  const handleClose = (item: string) => {
+    setActive(item);
   };
 
   const handleBack = () => {
@@ -126,10 +127,11 @@ const Pokemon = () => {
             />
           ) : (
             <Landing
-              data={pokemons}
+              data={active !== "" ? pokemonsFilter : pokemons}
               handleDetail={handleDetail}
               handleFilter={handleFilter}
               pokemonType={pokemonType}
+              handleClose={handleClose}
             />
           )}
         </div>

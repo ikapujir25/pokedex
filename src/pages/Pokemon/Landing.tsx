@@ -133,20 +133,22 @@ const btnWrapper = css`
   flex-direction: row;
   display: flex;
   margin-right: 20px;
-  padding-bottom: 30px;
   padding-top: 10px;
   padding-left: 5rem;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
 `;
 
-const afterStyle = css`
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  width: "20px",
-  height: "2px",
-  backgroundColor: "white", // White cross lines
-  transformOrigin: "center",
-  transform: "translate(-50%, -50%) rotate(-45deg)",
+const btnCancel = css`
+  margin-right: 20px;
+  border-radius: 50%;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 0px 10px;
+  color: #fff;
 `;
 
 const Landing = (props: PropsLanding) => {
@@ -176,7 +178,7 @@ const Landing = (props: PropsLanding) => {
                             : ["poison", "fire"].includes(item)
                             ? "#FA4659"
                             : ["normal"].includes(item)
-                            ? "#FEEE91"
+                            ? "#A66E38"
                             : "#9EDF9C"
                           : active === item
                           ? "#FC8F54"
@@ -186,7 +188,20 @@ const Landing = (props: PropsLanding) => {
                     {item}
                   </span>
                 ))}
-                {active !== "" && <div css={afterStyle}></div>}
+                {active !== "" && (
+                  <span
+                    onClick={() => {
+                      setActive("");
+                      props.handleClose("");
+                    }}
+                    css={btnCancel}
+                    style={{
+                      backgroundColor: "#AF1740",
+                    }}
+                  >
+                    &#215;
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -219,7 +234,7 @@ const Landing = (props: PropsLanding) => {
                           : ["poison", "fire"].includes(element.type.name)
                           ? "#FA4659"
                           : ["normal"].includes(element.type.name)
-                          ? "#B4B4B8"
+                          ? "#A66E38"
                           : "#9EDF9C",
                       }}
                     >

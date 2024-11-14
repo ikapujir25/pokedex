@@ -13,11 +13,11 @@ export interface PokemonList {
 }
 
 export interface PokemonMoves {
-  // effect_entries: { effect: string };
-  // power: number;
+  effect_entries: { effect: string };
+  power: number;
   name: string;
-  // accuracy: string;
-  // move: { short_effect: string; effect: string };
+  accuracy: string;
+  move: { short_effect: string; effect: string };
 }
 
 export interface PokemonType {
@@ -71,5 +71,6 @@ export interface PropsLanding {
   data: PokemonDetails[];
   handleDetail: (item: PokemonDetails) => void;
   handleFilter: (item: string) => void;
-  pokemonType: [];
+  handleClose: (item: string) => void;
+  pokemonType: string[];
 }

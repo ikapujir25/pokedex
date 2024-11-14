@@ -1,13 +1,6 @@
-import { useState } from "react";
-import "./App.css";
-import Landing from "./pages/Pokemon/Landing";
-
+import Pokemon from "./pages/Pokemon";
 function App() {
-  return (
-    <>
-      <Landing />
-    </>
-  );
+  return <Pokemon />;
 }
 
 export default App;

@@ -1,9 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { css } from "@emotion/react";
+import { PropsLanding } from "./type";
+import Image from "../../assets/pokemon.jpg";
+import { useState } from "react";
 
 const wrapper = css`
-  background-color: white;
+  // background-image: url(${Image});
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const sectionTop = css`
@@ -11,7 +17,8 @@ const sectionTop = css`
   top: 0;
   z-index: 1;
   background: #fff;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  paddingbottom: 20px;
 `;
 
 const pokeTitlePg = css`
@@ -21,44 +28,44 @@ const pokeTitlePg = css`
   padding-top: 15px;
 `;
 
-// const txtOfSearch = css`
-//   font-size: 18px;
-// `;
-
-// const search = css`
-//   height: 50px;
-//   border-radius: 30px;
-//   padding: 15px;
-//   border: 1px solid #c8c8c8;
-//   width: 100%;
-//   margin-top: 16px;
-// `;
-
-const totalOfPoke = css`
-  background-color: #5db9fc;
-  color: white;
-  margin-top: 18px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  & > span {
-    font-weight: 600;
-    margin-right: 10px;
-  }
+const txtOfSearch = css`
+  font-size: 18px;
+  padding-left: 5rem;
 `;
 
 const card = css`
-  border: 1px solid #eee;
+  border: 1px solid #47d1af;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  background-color: #47d1af;
+  margin: 10px;
+  background-color: #fff;
   border-radius: 12px;
-  padding: 5px 15px;
-  color: #fff;
+  padding: 20px;
+  color: #000;
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+    color: #fff;
+    background-color: #47d1af;
+    transform: translateY(-5px);
+  }
+  width: 250px;
+`;
+
+const cardType = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 10px;
 `;
 
 const imgPoke = css`
@@ -66,139 +73,175 @@ const imgPoke = css`
   border-radius: 50%;
 `;
 
-const btnPrevNext = css`
-    display: flex;
-    justify-content: space-between;
-    background: transparent;
-    top: 50%;
-    position: fixed;
-    & div {
-      cursor: pointer;
-    }
-    & span {
-        text-decoration: none;
-        display: inline-block;
-        padding: 2px 17px;
-        font-size: 22px;
-        opacity: 0.8;
-    }
-        &:hover {
-          color: black;
-        }
-      }
-    }
-  `;
+// const btnPrevNext = css`
+//     display: flex;
+//     justify-content: space-between;
+//     background: transparent;
+//     top: 50%;
+//     position: fixed;
+//     & div {
+//       cursor: pointer;
+//     }
+//     & span {
+//         text-decoration: none;
+//         display: inline-block;
+//         padding: 2px 17px;
+//         font-size: 22px;
+//         opacity: 0.8;
+//     }
+//         &:hover {
+//           color: black;
+//         }
+//       }
+//     }
+//   `;
 
 const btn = css`
-  background-color: #f1f1f1;
-  color: black;
-  width: 40px;
-  height: 40px;
-`;
-
-const round = css`
-  border-radius: 50%;
-`;
-
-const btnMyPoke = css`
-  width: fit-content;
-  padding: 10px;
-  display: flex;
-  border-radius: 30px;
-  background-color: #224099;
   color: white;
-  font-weight: 600;
-  font-size: 18px;
-  align-items: center;
   cursor: pointer;
+  margin-right: 20px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
 `;
 
-const countMyPoke = css`
-  margin-right: 15px;
-  background-color: white;
-  color: #224099;
-  min-width: 25px;
-  text-align: center;
-  border-radius: 50%;
-  padding: 2px 10px;
+// const round = css`
+//   border-radius: 50%;
+// `;
+
+// const btnMyPoke = css`
+//   width: fit-content;
+//   padding: 10px;
+//   display: flex;
+//   border-radius: 30px;
+//   background-color: #224099;
+//   color: white;
+//   font-weight: 600;
+//   font-size: 18px;
+//   align-items: center;
+//   cursor: pointer;
+// `;
+
+const rowWrap = css`
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
-const ListPokemon = () => {
-  //   const renderCard = () => {
-  //     return props.pokemonList.map(({name, image}) => (
-  //       <div key={i} className="col-lg-4 col-md-12">
-  //         <div css={card} onClick={(e) => handleDetail(e, item.name)}>
-  //           <div>{item.name}</div>
-  //           <div css={imgPoke}>
-  //             <img src={item.image} alt={`image_${item.name}`} />
-  //           </div>
-  //         </div>
-  //       </div>
-  //     ));
-  //   };
+const btnWrapper = css`
+  flex-direction: row;
+  display: flex;
+  margin-right: 20px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-left: 5rem;
+`;
+
+const afterStyle = css`
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  width: "20px",
+  height: "2px",
+  backgroundColor: "white", // White cross lines
+  transformOrigin: "center",
+  transform: "translate(-50%, -50%) rotate(-45deg)",
+`;
+
+const Landing = (props: PropsLanding) => {
+  const [active, setActive] = useState("");
 
   return (
     <div css={wrapper}>
       <div className="container-fluid">
         <section css={sectionTop}>
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 mb-10">
               <div css={pokeTitlePg}>Pokedex</div>
-              {/* <div css={txtOfSearch}>Cari pokemon berdasarkan nama</div>
-                <input css={search} type="text" onChange={() => {}} /> */}
+              <div css={txtOfSearch}>Find Your Pokemon by</div>
+              <div css={btnWrapper}>
+                {props.pokemonType?.map((item) => (
+                  <span
+                    onClick={() => {
+                      props.handleFilter(item);
+                      setActive(item);
+                    }}
+                    css={btn}
+                    style={{
+                      backgroundColor:
+                        active === ""
+                          ? ["water", "flying"].includes(item)
+                            ? "#7AB2D3"
+                            : ["poison", "fire"].includes(item)
+                            ? "#FA4659"
+                            : ["normal"].includes(item)
+                            ? "#FEEE91"
+                            : "#9EDF9C"
+                          : active === item
+                          ? "#FC8F54"
+                          : "#b6b6b6",
+                    }}
+                  >
+                    {item}
+                  </span>
+                ))}
+                {active !== "" && <div css={afterStyle}></div>}
+              </div>
             </div>
           </div>
-
-          {/* {getMyPokemon() && getMyPokemon().length > 0 && (
-              <div
-                className="row"
-                css={{ justifyContent: "flex-end", padding: "20px 15px 0 15px" }}
-              >
-                <div css={btnMyPoke} onClick={() => setOpenMyPoke(true)}>
-                  <span css={countMyPoke}>{getMyPokemon().length}</span>
-                  My Pokemon
-                </div>
-              </div>
-            )}
-   */}
-          {/* <div className="row">
-              <div css={totalOfPoke}>
-                {totalData > 0 ? (
-                  <div>
-                    <span>{totalData}</span> Pokemon ditemukan
-                  </div>
-                ) : (
-                  <div>Pokemon tidak ditemukan</div>
-                )}
-              </div>
-            </div> */}
         </section>
 
-        {/* <div className="row">{pokemonList && renderCard()}</div> */}
-
-        {/* <div className="row">
-            <div css={btnPrevNext}>
-              <div>
-                {offset > 0 && (
-                  <span css={[btn, round]} onClick={handlePrev}>
-                    &#8249;
-                  </span>
-                )}
-              </div>
-              <div>
-                {pokemonList &&
-                  pokemonList.length > 0 &&
-                  totalData - limit > offset && (
-                    <span css={[btn, round]} onClick={handleNext}>
-                      &#8250;
-                    </span>
-                  )}
+        <div className="row" css={rowWrap}>
+          {(props?.data ?? []).map((item, index) => (
+            <div key={index} className="col-lg-4 col-md-12">
+              <div
+                css={card}
+                onClick={() => {
+                  props.handleDetail(item);
+                }}
+              >
+                <div className="col">
+                  <div style={{ marginRight: "20px", marginBottom: "10px" }}>
+                    {item.name}
+                  </div>
+                  {item?.types?.map((element, index) => (
+                    <div
+                      key={index}
+                      css={cardType}
+                      style={{
+                        marginRight: "20px",
+                        textAlign: "start",
+                        backgroundColor: ["water", "flying"].includes(
+                          element.type.name
+                        )
+                          ? "#7AB2D3"
+                          : ["poison", "fire"].includes(element.type.name)
+                          ? "#FA4659"
+                          : ["normal"].includes(element.type.name)
+                          ? "#B4B4B8"
+                          : "#9EDF9C",
+                      }}
+                    >
+                      {element.type.name}
+                    </div>
+                  ))}
+                </div>
+                <div css={imgPoke}>
+                  <img
+                    src={item.sprites.front_default}
+                    alt={`image_${item.name}`}
+                  />
+                </div>
               </div>
             </div>
-          </div> */}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default ListPokemon;
+export default Landing;

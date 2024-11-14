@@ -90,14 +90,11 @@ const Detail = (props: PokemonDetails) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.warn(props, "isinya");
-
   useEffect(() => {
     const fetchDetailMoves = async () => {
       try {
         const pokemonMoves = await Promise.all(
           props?.moves?.map(async (item) => {
-            console.warn(item, "item");
             const { data } = await axios.get(item.move.url);
             return data;
           })
@@ -114,7 +111,6 @@ const Detail = (props: PokemonDetails) => {
       try {
         const pokemonAbility = await Promise.all(
           props?.abilities?.map(async (item) => {
-            console.warn(item, "item");
             const { data } = await axios.get(item.ability.url);
             return data;
           })
@@ -130,7 +126,7 @@ const Detail = (props: PokemonDetails) => {
     fetchDetailAbility();
   }, []);
 
-  console.warn("abilitymoves", moves, ability);
+  console.warn(props.moves, "moves");
 
   return (
     <div css={wrapper}>

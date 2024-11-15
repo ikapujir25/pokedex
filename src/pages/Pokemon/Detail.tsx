@@ -16,20 +16,13 @@ margin: 2rem;
 box-shadow: 10px 10px 30px -14px rgba(0,0,0,0.75)
 `;
 
-const sectionTop = css`
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  margin-bottom: 20px;
-  paddingbottom: 20px;
-`;
-
 const pokeTitlePg = css`
   font-size: 32px;
   font-weight: 600;
   text-align: center;
   padding-top: 15px;
   text-transform: uppercase;
+  color: #000;
 `;
 
 const pokeSubtitle = css`
@@ -43,7 +36,6 @@ const pokeSubtitle = css`
 const pokeText = css`
   font-size: 16px;
   font-weight: 600;
-  //   text-align: center;
   padding-top: 15px;
 `;
 
@@ -58,11 +50,12 @@ const imgPoke = css`
 const btn = css`
   color: white;
   margin-right: 20px;
-  padding: 5px 20px;
+  padding: 10px 20px;
   border-radius: 5px;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
+  width: fit-content;
 `;
 
 const rowWrap = css`
@@ -82,6 +75,13 @@ const btnBack = css`
   border: 1px solid #4cc9fe;
   background-color: #fff;
   cursor: pointer;
+  margin-top: 30px;
+`;
+
+const pokeItem = css`
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
 `;
 
 const Detail = (props: PokemonDetails) => {
@@ -135,24 +135,22 @@ const Detail = (props: PokemonDetails) => {
           <div css={pokeTitlePg}>error...</div>
         ) : (
           <div className="col-12">
-            <section css={sectionTop}>
-              <span
-                onClick={() => {
-                  props.handleBack();
-                }}
-                css={btnBack}
-              >
-                &#8249; Back
-              </span>
-              <div css={pokeTitlePg}>Pokedex</div>
-              <div css={pokeSubtitle}>{props.name}</div>
-              <div css={imgPoke} style={{ marginTop: "20px" }}>
-                <img
-                  src={props.sprites.front_default}
-                  alt={`image_${props.name}`}
-                />
-              </div>
-            </section>
+            <span
+              onClick={() => {
+                props.handleBack();
+              }}
+              css={btnBack}
+            >
+              &#8249; Back
+            </span>
+            <div css={pokeTitlePg}>Pokedex</div>
+            <div css={pokeSubtitle}>{props.name}</div>
+            <div css={imgPoke} style={{ marginTop: "20px" }}>
+              <img
+                src={props.sprites.front_default}
+                alt={`image_${props.name}`}
+              />
+            </div>
 
             <div css={pokeText}>Ability</div>
             <div className="row" css={rowWrap}>
@@ -189,15 +187,38 @@ const Detail = (props: PokemonDetails) => {
                     margin: "5px",
                   }}
                 >
-                  <span
-                    key={index}
+                  <div
                     css={btn}
                     style={{
                       backgroundColor: "#DE7C7D",
                     }}
                   >
-                    {el.name}
-                  </span>
+                    <div style={{ marginBottom: "10px" }}>{el.name}</div>
+                    <div css={pokeItem}>Accuracy: {el?.accuracy}</div>
+                    <progress
+                      max="100"
+                      value={el?.accuracy}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      {el?.accuracy}
+                    </progress>
+                    <div css={pokeItem}>Power: {el?.power}</div>
+                    <progress
+                      max="100"
+                      value={el?.power}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      {el?.power}
+                    </progress>
+                    <div css={pokeItem}>PP: {el?.pp}</div>
+                    <progress
+                      max="100"
+                      value={el?.pp}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      {el?.pp}
+                    </progress>
+                  </div>
                 </div>
               ))}
             </div>

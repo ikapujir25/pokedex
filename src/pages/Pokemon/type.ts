@@ -45,6 +45,10 @@ export interface PokemonMove {
     url: string;
   };
   name: string;
+  effect_entries: { effect: string };
+  power: number;
+  accuracy: string;
+  pp: string;
 }
 
 export interface PokemonAbility {
@@ -71,7 +75,7 @@ export interface PropsLanding {
   data: PokemonDetails[];
   handleDetail: (item: PokemonDetails) => void;
   handleFilter: (item: string) => void;
-  handleClose: (item: string) => void;
+  handleClose: () => void;
   handleNext: (item: string) => void;
   handlePrevious: (item: string) => void;
   pokemonType: string[];

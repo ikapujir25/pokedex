@@ -90,7 +90,7 @@ const Pokemon = () => {
   useEffect(() => {
     if (!openDetail && active === "") {
       fetchPokemon(
-        (pagination?.previous === ""
+        (pagination?.previous === "" || active === ""
           ? `https://pokeapi.co/api/v2/pokemon/`
           : activeURL) || ""
       );
@@ -110,8 +110,8 @@ const Pokemon = () => {
     setPokemonsFilter(pokemonsFiltering);
   };
 
-  const handleClose = (item: string) => {
-    setActive(item);
+  const handleClose = () => {
+    setActive("");
   };
 
   const handleBack = () => {

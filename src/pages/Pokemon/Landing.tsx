@@ -24,6 +24,7 @@ const pokeTitlePg = css`
   font-weight: 600;
   text-align: center;
   padding-top: 15px;
+  color: #000;
 `;
 
 const txtOfSearch = css`
@@ -80,6 +81,7 @@ const btn = css`
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
+  margin: 5px 20px 5px 0;
 `;
 
 const rowWrap = css`
@@ -112,7 +114,6 @@ const btnCancel = css`
 `;
 
 const btnAction = css`
-  cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
   text-transform: uppercase;
@@ -132,8 +133,9 @@ const Landing = (props: PropsLanding) => {
               <div css={pokeTitlePg}>Pokedex</div>
               <div css={txtOfSearch}>Find Your Pokemon by</div>
               <div css={btnWrapper}>
-                {props.pokemonType?.map((item) => (
+                {props.pokemonType?.map((item, index) => (
                   <span
+                    key={index}
                     onClick={() => {
                       props.handleFilter(item);
                       setActive(item);
@@ -161,7 +163,7 @@ const Landing = (props: PropsLanding) => {
                   <span
                     onClick={() => {
                       setActive("");
-                      props.handleClose("");
+                      props.handleClose();
                     }}
                     css={btnCancel}
                     style={{

@@ -126,8 +126,6 @@ const Detail = (props: PokemonDetails) => {
     fetchDetailAbility();
   }, []);
 
-  console.warn(props.moves, "moves");
-
   return (
     <div css={wrapper}>
       <div className="row">

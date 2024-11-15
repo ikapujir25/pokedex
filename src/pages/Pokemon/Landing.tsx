@@ -28,7 +28,7 @@ const pokeTitlePg = css`
 
 const txtOfSearch = css`
   font-size: 18px;
-  padding-left: 5rem;
+  padding-left: 4.5rem;
 `;
 
 const card = css`
@@ -71,29 +71,6 @@ const imgPoke = css`
   border-radius: 50%;
 `;
 
-// const btnPrevNext = css`
-//     display: flex;
-//     justify-content: space-between;
-//     background: transparent;
-//     top: 50%;
-//     position: fixed;
-//     & div {
-//       cursor: pointer;
-//     }
-//     & span {
-//         text-decoration: none;
-//         display: inline-block;
-//         padding: 2px 17px;
-//         font-size: 22px;
-//         opacity: 0.8;
-//     }
-//         &:hover {
-//           color: black;
-//         }
-//       }
-//     }
-//   `;
-
 const btn = css`
   color: white;
   cursor: pointer;
@@ -104,23 +81,6 @@ const btn = css`
   font-weight: 600;
   font-size: 12px;
 `;
-
-// const round = css`
-//   border-radius: 50%;
-// `;
-
-// const btnMyPoke = css`
-//   width: fit-content;
-//   padding: 10px;
-//   display: flex;
-//   border-radius: 30px;
-//   background-color: #224099;
-//   color: white;
-//   font-weight: 600;
-//   font-size: 18px;
-//   align-items: center;
-//   cursor: pointer;
-// `;
 
 const rowWrap = css`
   flex-direction: row;
@@ -134,7 +94,7 @@ const btnWrapper = css`
   display: flex;
   margin-right: 20px;
   padding-top: 10px;
-  padding-left: 5rem;
+  padding-left: 4.5rem;
   flex-wrap: wrap;
   margin-bottom: 10px;
   align-items: center;
@@ -149,6 +109,15 @@ const btnCancel = css`
   cursor: pointer;
   padding: 0px 10px;
   color: #fff;
+`;
+
+const btnAction = css`
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
 `;
 
 const Landing = (props: PropsLanding) => {
@@ -196,7 +165,7 @@ const Landing = (props: PropsLanding) => {
                     }}
                     css={btnCancel}
                     style={{
-                      backgroundColor: "#AF1740",
+                      backgroundColor: "#4F75FF",
                     }}
                   >
                     &#215;
@@ -251,6 +220,44 @@ const Landing = (props: PropsLanding) => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div
+          className="row"
+          style={{
+            justifyContent: "space-between",
+            display: "flex",
+            margin: "2rem 4.5rem",
+          }}
+        >
+          <button
+            onClick={() => {
+              props.handlePrevious("");
+            }}
+            css={btnAction}
+            style={{
+              backgroundColor: props.activate === "" ? "#E4E0E1" : "#fff",
+              color: props.activate === "" ? "white" : "#4F75FF",
+              border: `2px solid ${
+                props.activate === "" ? "#E4E0E1" : "#4F75FF"
+              }`,
+            }}
+            disabled={props.activate === ""}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => {
+              props.handleNext("");
+            }}
+            css={btnAction}
+            style={{
+              backgroundColor: "#4F75FF",
+              color: "white",
+            }}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

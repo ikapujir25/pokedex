@@ -72,5 +72,15 @@ export interface PropsLanding {
   handleDetail: (item: PokemonDetails) => void;
   handleFilter: (item: string) => void;
   handleClose: (item: string) => void;
+  handleNext: (item: string) => void;
+  handlePrevious: (item: string) => void;
   pokemonType: string[];
+  activate: string;
+}
+
+export interface APIResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: PokemonList[];
 }

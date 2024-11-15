@@ -128,7 +128,7 @@ const Detail = (props: PokemonDetails) => {
   }, []);
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div style={{ padding: "2rem" }}>
       <div css={wrapper}>
         <div className="row">
           {loading ? (

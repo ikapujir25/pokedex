@@ -47,8 +47,8 @@ export interface PokemonMove {
   name: string;
   effect_entries: { effect: string };
   power: number;
-  accuracy: string;
-  pp: string;
+  accuracy: number;
+  pp: number;
 }
 
 export interface PokemonAbility {

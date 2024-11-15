@@ -5,12 +5,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const wrapper = css`
-  background:linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
+  background-color:linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  padding: 20px;
-margin: 2rem;
+  padding: 40px;
+  margin: 2rem;
   box-shadow: "10px 10px 30px -14px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 10px 30px -14px rgba(0,0,0,0.75);
 box-shadow: 10px 10px 30px -14px rgba(0,0,0,0.75)
@@ -76,6 +76,7 @@ const btnBack = css`
   background-color: #fff;
   cursor: pointer;
   margin-top: 30px;
+  text-align: center;
 `;
 
 const pokeItem = css`
@@ -127,103 +128,130 @@ const Detail = (props: PokemonDetails) => {
   }, []);
 
   return (
-    <div css={wrapper}>
-      <div className="row">
-        {loading ? (
-          <div css={pokeTitlePg}>loading...</div>
-        ) : error ? (
-          <div css={pokeTitlePg}>error...</div>
-        ) : (
-          <div className="col-12">
-            <span
-              onClick={() => {
-                props.handleBack();
-              }}
-              css={btnBack}
-            >
-              &#8249; Back
-            </span>
-            <div css={pokeTitlePg}>Pokedex</div>
-            <div css={pokeSubtitle}>{props.name}</div>
-            <div css={imgPoke} style={{ marginTop: "20px" }}>
-              <img
-                src={props.sprites.front_default}
-                alt={`image_${props.name}`}
-              />
-            </div>
+    <div>
+      <div css={wrapper}>
+        <div className="row">
+          {loading ? (
+            <div css={pokeTitlePg}>loading...</div>
+          ) : error ? (
+            <div css={pokeTitlePg}>error...</div>
+          ) : (
+            <div className="col-12">
+              <span
+                onClick={() => {
+                  props.handleBack();
+                }}
+                css={btnBack}
+              >
+                &#8249; Back
+              </span>
+              <div css={pokeTitlePg}>Pokedex</div>
+              <div css={pokeSubtitle}>{props.name}</div>
+              <div css={imgPoke} style={{ marginTop: "20px" }}>
+                <img
+                  src={props.sprites.front_default}
+                  alt={`image_${props.name}`}
+                />
+              </div>
 
-            <div css={pokeText}>Ability</div>
-            <div className="row" css={rowWrap}>
-              {(ability ?? []).map((el, index) => (
-                <div
-                  key={index}
-                  className="col-lg-4 col-md-12"
-                  style={{
-                    margin: "5px",
-                  }}
-                >
-                  <span
-                    key={index}
-                    css={btn}
-                    style={{
-                      backgroundColor: "#7ED4AD",
-                    }}
-                  >
-                    {el.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div css={pokeText} style={{ marginTop: "20px" }}>
-              Moves
-            </div>
-            <div className="row" css={rowWrap}>
-              {(moves ?? []).map((el, index) => (
-                <div
-                  key={index}
-                  className="col-lg-4 col-md-12"
-                  style={{
-                    margin: "5px",
-                  }}
-                >
+              <div css={pokeText} style={{ marginTop: "20px" }}>
+                Ability
+              </div>
+              <div className="row" css={rowWrap}>
+                {(ability ?? []).map((el, index) => (
                   <div
-                    css={btn}
+                    key={index}
+                    className="col-lg-4 col-md-12"
                     style={{
-                      backgroundColor: "#DE7C7D",
+                      margin: "5px",
                     }}
                   >
-                    <div style={{ marginBottom: "10px" }}>{el.name}</div>
-                    <div css={pokeItem}>Accuracy: {el?.accuracy}</div>
-                    <progress
-                      max="100"
-                      value={el?.accuracy}
-                      style={{ marginBottom: "10px" }}
+                    <span
+                      key={index}
+                      css={btn}
+                      style={{
+                        backgroundColor: "#7ED4AD",
+                      }}
                     >
-                      {el?.accuracy}
-                    </progress>
-                    <div css={pokeItem}>Power: {el?.power}</div>
-                    <progress
-                      max="100"
-                      value={el?.power}
-                      style={{ marginBottom: "10px" }}
-                    >
-                      {el?.power}
-                    </progress>
-                    <div css={pokeItem}>PP: {el?.pp}</div>
-                    <progress
-                      max="100"
-                      value={el?.pp}
-                      style={{ marginBottom: "10px" }}
-                    >
-                      {el?.pp}
-                    </progress>
+                      {el.name}
+                    </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <div css={pokeText} style={{ marginTop: "20px" }}>
+                Moves
+              </div>
+              <div className="row" css={rowWrap}>
+                {(moves ?? []).map((el, index) => (
+                  <div
+                    key={index}
+                    className="col-lg-4 col-md-12"
+                    style={{
+                      margin: "5px",
+                    }}
+                  >
+                    <div
+                      css={btn}
+                      style={{
+                        backgroundColor: "#B7B7B7",
+                        // backgroundColor: "#E78F81",
+                      }}
+                    >
+                      <div style={{ marginBottom: "10px" }}>{el.name}</div>
+                      <div css={pokeItem}>Accuracy: {el?.accuracy || 0}</div>
+                      <progress max="100" value={el?.accuracy || 0}>
+                        {el?.accuracy}
+                      </progress>
+                      {(el?.accuracy === null || el?.accuracy > 100) && (
+                        <div
+                          css={pokeItem}
+                          style={{
+                            color: el?.accuracy > 100 ? "#FFD09B" : "#C7253E",
+                          }}
+                        >
+                          {el?.accuracy > 100 ? "High HP" : "Low HP"}
+                        </div>
+                      )}
+                      <div css={pokeItem} style={{ marginTop: "10px" }}>
+                        Power: {el?.power || 0}
+                      </div>
+                      <progress max="100" value={el?.power || 0}>
+                        {el?.power}
+                      </progress>
+                      {(el?.power === null || el?.power > 100) && (
+                        <div
+                          css={pokeItem}
+                          style={{
+                            color: el?.power > 100 ? "#FFD09B" : "#C7253E",
+                          }}
+                        >
+                          {el?.power > 100 ? "High HP" : "Low HP"}
+                        </div>
+                      )}
+                      <div css={pokeItem} style={{ marginTop: "10px" }}>
+                        PP: {el?.pp || 0}
+                      </div>
+                      <progress max="100" value={el?.pp || 0}>
+                        {el?.pp}
+                      </progress>
+                      {(el?.pp === null || el?.pp > 100) && (
+                        <div
+                          css={pokeItem}
+                          style={{
+                            color: el?.pp > 100 ? "#FFD09B" : "#C7253E",
+                          }}
+                        >
+                          {el?.pp > 100 ? "High HP" : "Low HP"}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

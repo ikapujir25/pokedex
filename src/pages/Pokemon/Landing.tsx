@@ -3,13 +3,6 @@ import { css } from "@emotion/react";
 import { PropsLanding } from "./type";
 import { useState } from "react";
 
-const wrapper = css`
-  background-position: center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
 const sectionTop = css`
   position: sticky;
   top: 0;
@@ -68,8 +61,8 @@ const cardType = css`
 `;
 
 const imgPoke = css`
-  background-color: #63d7bb;
   border-radius: 50%;
+  background-color: #63d7bb;
 `;
 
 const btn = css`
@@ -125,7 +118,7 @@ const Landing = (props: PropsLanding) => {
   const [active, setActive] = useState("");
 
   return (
-    <div css={wrapper}>
+    <div>
       <div className="container-fluid">
         <section css={sectionTop}>
           <div className="row">
@@ -223,44 +216,46 @@ const Landing = (props: PropsLanding) => {
             </div>
           ))}
         </div>
+        {active === "" && (
+          <div
+            className="row"
+            style={{
+              justifyContent: "space-between",
+              display: "flex",
+              margin: "2rem 4.5rem",
+            }}
+          >
+            <button
+              onClick={() => {
+                props.handlePrevious("");
+              }}
+              css={btnAction}
+              style={{
+                backgroundColor: props.activate === "" ? "#E4E0E1" : "#fff",
+                color: props.activate === "" ? "white" : "#4F75FF",
+                border: `2px solid ${
+                  props.activate === "" ? "#E4E0E1" : "#4F75FF"
+                }`,
+              }}
+              disabled={props.activate === ""}
+            >
+              Previous
+            </button>
 
-        <div
-          className="row"
-          style={{
-            justifyContent: "space-between",
-            display: "flex",
-            margin: "2rem 4.5rem",
-          }}
-        >
-          <button
-            onClick={() => {
-              props.handlePrevious("");
-            }}
-            css={btnAction}
-            style={{
-              backgroundColor: props.activate === "" ? "#E4E0E1" : "#fff",
-              color: props.activate === "" ? "white" : "#4F75FF",
-              border: `2px solid ${
-                props.activate === "" ? "#E4E0E1" : "#4F75FF"
-              }`,
-            }}
-            disabled={props.activate === ""}
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => {
-              props.handleNext("");
-            }}
-            css={btnAction}
-            style={{
-              backgroundColor: "#4F75FF",
-              color: "white",
-            }}
-          >
-            Next
-          </button>
-        </div>
+            <button
+              onClick={() => {
+                props.handleNext("");
+              }}
+              css={btnAction}
+              style={{
+                backgroundColor: "#4F75FF",
+                color: "white",
+              }}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

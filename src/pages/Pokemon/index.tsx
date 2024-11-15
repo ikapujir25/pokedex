@@ -34,7 +34,7 @@ const Pokemon = () => {
       if (status === 200) {
         setPagination({
           next: data.next,
-          previous: data.previous,
+          previous: data.previous === null ? "" : data.previous,
         });
         const pokemonData = await Promise.all(
           data?.results.map(async (item: PokemonList) => {
@@ -122,12 +122,14 @@ const Pokemon = () => {
     setOpenDetail(false);
     setActiveURL(pagination?.next || item);
     fetchPokemon(pagination?.next);
+    setActive("");
   };
 
   const handlePrevious = (item: string) => {
     setOpenDetail(false);
     setActiveURL(pagination?.previous || item);
     if (pagination?.previous !== "") fetchPokemon(pagination?.previous);
+    setActive("");
   };
 
   return (
@@ -159,7 +161,7 @@ const Pokemon = () => {
               handleClose={handleClose}
               handleNext={handleNext}
               handlePrevious={handlePrevious}
-              activate={activeURL}
+              activate={pagination?.previous}
             />
           )}
         </div>
